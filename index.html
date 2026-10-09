@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>ЭкоНива КРУГ · Молоко. Второй круг.</title>
+<meta name="description" content="Белковый напиток из творожной сыворотки: 20 г белка, без добавленного сахара, халяль. Путь бутылки от фермы до полки в Грозном.">
+<meta name="theme-color" content="#0f2a17">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="fonts/Unbounded-800-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/b_hero.webp" as="image">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- прелоадер -->
+<div id="loader" aria-hidden="true">
+  <svg viewBox="0 0 120 120"><circle class="trk" cx="60" cy="60" r="50"/><circle class="bar" cx="60" cy="60" r="50"/></svg>
+  <div class="pct"><span id="pct">0</span>%</div>
+</div>
+
+<div id="cursor" aria-hidden="true"><span></span></div>
+<svg id="progress" viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="18"/><circle class="p" cx="22" cy="22" r="18"/></svg>
+
+<header class="nav">
+  <a class="brand" href="#top"><i class="dot"></i>ЭкоНива <b>КРУГ</b></a>
+  <nav><a href="#cycle">Круг</a><a href="#path">Путь</a><a href="#inside">Состав</a><a href="#eco">CO₂</a><a href="#tastes">Вкусы</a></nav>
+</header>
+
+<main id="top">
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg"><i class="orb o1"></i><i class="orb o2"></i><i class="orb o3"></i><div class="grain"></div></div>
+  <div class="rings"><i></i><i></i><i></i></div>
+  <canvas id="drops"></canvas>
+
+  <div class="hero-stage" id="stage">
+    <img class="fly b1" src="assets/b_kizil.webp" alt="КРУГ кизил" data-depth="0.6">
+    <img class="fly b2" src="assets/b_abrikos.webp" alt="КРУГ абрикос" data-depth="0.9">
+    <img class="fly b0" src="assets/b_hero.webp" alt="Бутылка ЭкоНива КРУГ" data-depth="1.2">
+    <img class="fly b3" src="assets/b_finik.webp" alt="КРУГ финик" data-depth="0.8">
+    <img class="fly b4" src="assets/b_nat.webp" alt="КРУГ натуральный" data-depth="0.5">
+    <img class="fly f1" src="assets/cornel.webp" alt="" data-depth="1.6">
+    <img class="fly f2" src="assets/apricot.webp" alt="" data-depth="1.4">
+    <img class="fly f3" src="assets/whey.webp" alt="" data-depth="1.8">
+    <img class="fly f4" src="assets/leaf.webp" alt="" data-depth="2">
+    <img class="fly f5" src="assets/ring_green.webp" alt="" data-depth="0.4">
+    <img class="fly f6" src="assets/ring_milk.webp" alt="" data-depth="0.7">
+  </div>
+
+  <div class="hero-copy">
+    <p class="kicker">Белковый напиток из творожной сыворотки</p>
+    <h1 class="split">Молоко.<br><em>Второй круг.</em></h1>
+    <ul class="pills">
+      <li><b>20 г</b> белка</li><li><b>0 г</b> добавленного сахара</li><li><b>халяль</b></li>
+    </ul>
+  </div>
+  <a class="scroll-hint" href="#cycle"><span>листай</span><i></i></a>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee" aria-hidden="true"><div class="track">
+  <span>150 г сыворотки в каждой бутылке</span><i>✦</i><span>20 г белка</span><i>✦</i><span>без добавленного сахара</span><i>✦</i><span>халяль</span><i>✦</i><span>Грозный · 2027</span><i>✦</i>
+  <span>150 г сыворотки в каждой бутылке</span><i>✦</i><span>20 г белка</span><i>✦</i><span>без добавленного сахара</span><i>✦</i><span>халяль</span><i>✦</i><span>Грозный · 2027</span><i>✦</i>
+</div></div>
+
+<!-- ПРОБЛЕМА -->
+<section class="sec problem">
+  <div class="wrap">
+    <p class="eyebrow reveal">Почему КРУГ</p>
+    <h2 class="reveal">Когда делают творог, остаётся <em>кислая сыворотка</em>. Её трудно переработать, и чаще всего она уходит в отходы.</h2>
+    <div class="facts">
+      <div class="fact reveal"><b class="count" data-to="150">0</b><span>г</span><p>творожной сыворотки в каждой бутылке вместо стока</p></div>
+      <div class="fact reveal"><b class="count" data-to="60">0</b><span>%</span><p>напитка — сыворотка, остальное молочная основа и фрукты</p></div>
+      <div class="fact reveal"><b class="count" data-to="900">0</b><span>т</span><p>сыворотки в год идёт в еду на третьем году, при 6 млн бутылок</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- КРУГ: pinned -->
+<section class="cycle" id="cycle">
+  <div class="cycle-pin">
+    <div class="cycle-copy">
+      <p class="eyebrow">Замыкаем цепочку</p>
+      <h2>Молоко проходит<br><em>второй круг</em></h2>
+      <p class="lead" id="cycleText">Поле кормит ферму.</p>
+    </div>
+    <div class="cycle-ring">
+      <svg viewBox="0 0 600 600" id="ringSvg">
+        <circle class="base" cx="300" cy="300" r="240"/>
+        <circle class="draw" id="ringDraw" cx="300" cy="300" r="240"/>
+      </svg>
+      <img class="cycle-center" src="assets/b_front.webp" alt="">
+      <div class="node" style="--a:-90deg" data-i="0"><span class="ic"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M2 22 16 8" /> <path d="M3.47 12.53 5 11l1.53 1.53a3.5 3.5 0 0 1 0 4.94L5 19l-1.53-1.53a3.5 3.5 0 0 1 0-4.94Z" /> <path d="M7.47 8.53 9 7l1.53 1.53a3.5 3.5 0 0 1 0 4.94L9 15l-1.53-1.53a3.5 3.5 0 0 1 0-4.94Z" /> <path d="M11.47 4.53 13 3l1.53 1.53a3.5 3.5 0 0 1 0 4.94L13 11l-1.53-1.53a3.5 3.5 0 0 1 0-4.94Z" /> <path d="M20 2h2v2a4 4 0 0 1-4 4h-2V6a4 4 0 0 1 4-4Z" /> <path d="M11.47 17.47 13 19l-1.53 1.53a3.5 3.5 0 0 1-4.94 0L5 19l1.53-1.53a3.5 3.5 0 0 1 4.94 0Z" /> <path d="M15.47 13.47 17 15l-1.53 1.53a3.5 3.5 0 0 1-4.94 0L9 15l1.53-1.53a3.5 3.5 0 0 1 4.94 0Z" /> <path d="M19.47 9.47 21 11l-1.53 1.53a3.5 3.5 0 0 1-4.94 0L13 11l1.53-1.53a3.5 3.5 0 0 1 4.94 0Z" /> </svg></span><b>Поле</b><small>корма «ЭкоНиваАгро»</small></div>
+      <div class="node" style="--a:-30deg" data-i="1"><span class="ic"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M8 2h8" /> <path d="M9 2v2.789a4 4 0 0 1-.672 2.219l-.656.984A4 4 0 0 0 7 10.212V20a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-9.789a4 4 0 0 0-.672-2.219l-.656-.984A4 4 0 0 1 15 4.788V2" /> <path d="M7 15a6.472 6.472 0 0 1 5 0 6.47 6.47 0 0 0 5 0" /> </svg></span><b>Ферма</b><small>молоко</small></div>
+      <div class="node" style="--a:30deg" data-i="2"><span class="ic"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 16h.01" /> <path d="M16 16h.01" /> <path d="M3 19a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8.5a.5.5 0 0 0-.769-.422l-4.462 2.844A.5.5 0 0 1 15 10.5v-2a.5.5 0 0 0-.769-.422L9.77 10.922A.5.5 0 0 1 9 10.5V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2z" /> <path d="M8 16h.01" /> </svg></span><b>Аннинский завод</b><small>творог</small></div>
+      <div class="node" style="--a:90deg" data-i="3"><span class="ic"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7.29 6.75 7 5.3c-.29 1.45-1.14 2.84-2.29 3.76S3 11.1 3 12.25c0 2.22 1.8 4.05 4 4.05z" /> <path d="M12.56 6.6A10.97 10.97 0 0 0 14 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6.98 6.98 0 0 1-11.91 4.97" /> </svg></span><b>Кислая сыворотка</b><small>раньше — в сток</small></div>
+      <div class="node hot" style="--a:150deg" data-i="4"><span class="ic"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8" /> <path d="M21 3v5h-5" /> <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16" /> <path d="M8 16H3v5" /> </svg></span><b>КРУГ</b><small>60% сыворотки + белок</small></div>
+      <div class="node" style="--a:210deg" data-i="5"><span class="ic"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m15 11-1 9" /> <path d="m19 11-4-7" /> <path d="M2 11h20" /> <path d="m3.5 11 1.6 7.4a2 2 0 0 0 2 1.6h9.8a2 2 0 0 0 2-1.6l1.7-7.4" /> <path d="M4.5 15.5h15" /> <path d="m5 11 4-7" /> <path d="m9 11 1 9" /> </svg></span><b>Покупатель</b><small>в Грозном</small></div>
+    </div>
+  </div>
+</section>
+
+<!-- ПУТЬ БУТЫЛКИ -->
+<section class="sec path" id="path">
+  <div class="wrap">
+    <p class="eyebrow reveal">Путь этой бутылки</p>
+    <h2 class="reveal">От фермы до полки <em>в Грозном</em></h2>
+  </div>
+  <div class="steps-wrap">
+    <svg class="steps-line" preserveAspectRatio="none" viewBox="0 0 10 1000"><path id="stepsPath" d="M5 0 V1000"/></svg>
+    <i class="runner" id="runner"></i>
+    <ol class="steps">
+      <li class="step"><span class="n">01</span><div><h3>Ферма «ЭкоНиваАгро»</h3><p>Молоко едет на завод не дольше 1,5 часа — так требует задание кейса.</p><em class="tag">≤ 1,5 ч</em></div></li>
+      <li class="step"><span class="n">02</span><div><h3>Творог на Аннинском заводе</h3><p>Воронежская область. Творог здесь уже делают, а кислая сыворотка остаётся после него.</p><em class="tag">сырьё рядом</em></div></li>
+      <li class="step"><span class="n">03</span><div><h3>Сыворотку осветляют и пастеризуют</h3><p>Отдельно готовят основу: обезжиренное молоко, сывороточный белок КСБ‑80 и живые культуры.</p><em class="tag">2 потока</em></div></li>
+      <li class="step"><span class="n">04</span><div><h3>Смешивание</h3><p>После сквашивания основу соединяют с сывороткой и фруктовой начинкой на существующей линии.</p><em class="tag">без новой дорогой линии</em></div></li>
+      <li class="step"><span class="n">05</span><div><h3>Розлив и холод</h3><p>Белая бутылка с переработанным пластиком (rPET), хранение при +2…+6 °C, срок 30 суток.</p><em class="tag">+2…+6 °C</em></div></li>
+      <li class="step"><span class="n">06</span><div><h3>Рефрижератор в Грозный</h3><p>Около 1 300 км и примерно двое суток в пути до дистрибьютора.</p><em class="tag">~1 300 км</em></div></li>
+      <li class="step"><span class="n">07</span><div><h3>На полке в Грозном</h3><p>Магазины, спортзалы и маркетплейсы. Пилот стартует в конце января 2027, к Рамадану.</p><em class="tag">139 ₽</em></div></li>
+    </ol>
+  </div>
+
+  <div class="route reveal">
+    <div class="route-line"><i class="city a">Анна<small>Воронежская обл.</small></i><i class="city b">Грозный<small>Чеченская Республика</small></i>
+      <img class="truck" id="truck" src="assets/truck.webp" alt="рефрижератор"></div>
+    <p class="km"><b id="km">0</b> км</p>
+  </div>
+</section>
+
+<!-- СОСТАВ -->
+<section class="sec inside" id="inside">
+  <div class="wrap two">
+    <div class="glass-bottle" id="gb">
+      <div class="gb-body">
+        <i class="layer l1" style="--h:60%" data-n="150 г" data-t="творожная сыворотка"></i>
+        <i class="layer l2" style="--h:20%" data-n="50 г" data-t="обезжиренное молоко"></i>
+        <i class="layer l3" style="--h:9.6%" data-n="24 г" data-t="фруктовая начинка"></i>
+        <i class="layer l4" style="--h:8.8%" data-n="22 г" data-t="белок КСБ‑80"></i>
+        <i class="layer l5" style="--h:1.6%" data-n="4 г" data-t="закваска и стабилизатор"></i>
+      </div>
+      <div class="gb-cap"></div>
+    </div>
+    <div>
+      <p class="eyebrow reveal">Честный состав</p>
+      <h2 class="reveal">250 г, из них <em>150 г</em> — то, что раньше выливали</h2>
+      <ul class="legend" id="legend"></ul>
+      <div class="badges reveal">
+        <span><b>20 г</b>белка</span><span><b>0 г</b>доб. сахара</span><span><b>30</b>суток срок</span><span><b>халяль</b>сертификат</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CO2 -->
+<section class="sec eco" id="eco">
+  <div class="wrap">
+    <p class="eyebrow reveal">Эко-эффект в цифрах</p>
+    <h2 class="reveal">Около <em class="count" data-to="104">0</em> г CO₂e экономии на бутылку</h2>
+    <p class="lead reveal">Базовый расчёт команды по формуле <b>М − Б + П − Т</b>: что сэкономили на молоке, минус белок, плюс переработанный пластик, минус доставка.</p>
+    <div class="wf" id="wf">
+      <div class="col up" style="--v:150;--b:0"><i></i><b>+150</b><span>М · сыворотка вместо молока</span></div>
+      <div class="col dn" style="--v:31;--b:119"><i></i><b>−31</b><span>Б · белок КСБ‑80</span></div>
+      <div class="col up" style="--v:34;--b:119"><i></i><b>+34</b><span>П · rPET вместо нового пластика</span></div>
+      <div class="col dn" style="--v:49;--b:104"><i></i><b>−49</b><span>Т · доставка 1 300 км</span></div>
+      <div class="col tot" style="--v:104;--b:0"><i></i><b>+104</b><span>итог, г CO₂e</span></div>
+    </div>
+    <p class="note reveal">Диапазон сценариев от −127 до +162 г: результат честно зависит от допущений. Главное не меняется: 150 г сыворотки в каждой бутылке идут в еду.</p>
+  </div>
+</section>
+
+<!-- ВКУСЫ -->
+<section class="sec tastes" id="tastes">
+  <div class="wrap">
+    <p class="eyebrow reveal">Четыре вкуса</p>
+    <h2 class="reveal">Нажми на бутылку — <em>встряхни</em></h2>
+  </div>
+  <div class="shelf">
+    <button class="taste" style="--c:#c8102e"><img src="assets/b_kizil.webp" alt=""><img class="fruit" src="assets/cornel.webp" alt=""><b>Кизил</b><small>кавказская классика</small></button>
+    <button class="taste" style="--c:#f39a1e"><img src="assets/b_abrikos.webp" alt=""><img class="fruit" src="assets/apricot.webp" alt=""><b>Абрикос</b><small>мягкий и сладкий</small></button>
+    <button class="taste" style="--c:#7fb43a"><img src="assets/b_nat.webp" alt=""><img class="fruit" src="assets/whey.webp" alt=""><b>Натуральный</b><small>чистый вкус</small></button>
+    <button class="taste" style="--c:#8a5a2b"><img src="assets/b_finik.webp" alt=""><img class="fruit" src="assets/dates.webp" alt=""><b>Финик</b><small>к Рамадану</small></button>
+  </div>
+</section>
+
+<!-- ФИНАЛ -->
+<section class="sec final">
+  <div class="wrap">
+    <div class="big-ring"><svg viewBox="0 0 200 200"><defs><path id="circ" d="M100,100 m-80,0 a80,80 0 1,1 160,0 a80,80 0 1,1 -160,0"/></defs>
+      <text><textPath href="#circ">МОЛОКО · ВТОРОЙ КРУГ · МОЛОКО · ВТОРОЙ КРУГ · </textPath></text></svg>
+      <img src="assets/b_hero.webp" alt=""></div>
+    <h2 class="reveal">139 ₽ на полке.<br><em>Пилот в Грозном — 2027.</em></h2>
+    <div class="team reveal">
+      <p class="eyebrow">Команда</p>
+      <ul><li>Галаматов Ахмад</li><li>Тайдаев Абубакар</li><li>Мунаев Магомед‑Эмин</li><li>Амхадов Халид</li></ul>
+    </div>
+  </div>
+  <footer>Концепт команды для кейс-чемпионата «КЛЮЧ» 26/27, направление «Регион». Не официальный сайт ГК «ЭкоНива». Изображения продукта — 3D‑визуализация концепта.</footer>
+</section>
+
+</main>
+
+<script src="vendor/gsap.min.js"></script>
+<script src="vendor/ScrollTrigger.min.js"></script>
+<script src="vendor/lenis.min.js"></script>
+<script src="main.js"></script>
+</body>
+</html>
