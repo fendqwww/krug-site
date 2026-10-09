@@ -4,6 +4,7 @@
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const mobile = matchMedia('(max-width: 860px)').matches;
   gsap.registerPlugin(ScrollTrigger);
+  ScrollTrigger.config({ ignoreMobileResize: true });
 
   /* плавный скролл */
   let lenis = null;
@@ -45,7 +46,8 @@
   const loads = imgs.map(i => i.complete ? (tick(), 1) : new Promise(r => { i.addEventListener('load', () => { tick(); r(); }, { once: true }); i.addEventListener('error', () => { tick(); r(); }, { once: true }); }));
   Promise.race([Promise.all([...loads, document.fonts.ready]), new Promise(r => setTimeout(r, 4000))]).then(start);
 
-  function start() {
+  async function start() {
+    try { await Promise.all($$('.hero img').map(i => i.decode ? i.decode().catch(() => {}) : 1)); } catch (e) {}
     pct.textContent = 100; bar.style.strokeDashoffset = 0;
     gsap.to('#loader', { autoAlpha: 0, duration: .6, delay: .25, onComplete: () => $('#loader').remove() });
     intro();
@@ -60,8 +62,8 @@
     bottles.forEach((s, i) => {
       const side = s === '.b0' ? 0 : (['.b1', '.b2'].includes(s) ? -1 : 1);
       tl.fromTo(s,
-        { z: -2400, y: 420, x: side * 260, rotation: side * -50 + (s === '.b0' ? 25 : 0), rotationY: 70, opacity: 0, filter: 'blur(18px) drop-shadow(0 30px 40px rgba(0,0,0,.35))' },
-        { z: 0, y: 0, x: 0, rotation: s === '.b0' ? 0 : side * 8, rotationY: 0, opacity: 1, filter: 'blur(0px) drop-shadow(0 30px 40px rgba(0,0,0,.35))', duration: 1.5, ease: 'expo.out' },
+        { z: -2400, y: 420, x: side * 260, rotation: side * -50 + (s === '.b0' ? 25 : 0), rotationY: 70, opacity: 0, scale: .6 },
+        { z: 0, y: 0, x: 0, rotation: s === '.b0' ? 0 : side * 8, rotationY: 0, opacity: 1, scale: 1, duration: 1.5, ease: 'expo.out', force3D: true },
         .1 + i * .12);
     });
     tl.from('.f1,.f2,.f3,.f4,.f5,.f6', { scale: 0, opacity: 0, rotation: () => gsap.utils.random(-180, 180), duration: 1.2, stagger: .06, ease: 'back.out(2)' }, .7);
@@ -107,7 +109,7 @@
       else { p.x += p.vx; p.y += p.vy; p.vy += .25; p.vx *= .98; p.life -= .012; cx.fillStyle = `rgba(${p.c},${Math.max(0, p.life)})`; }
       cx.beginPath(); cx.arc(p.x, p.y, p.r, 0, 7); cx.fill();
     }
-    if (scrollY < innerHeight * 1.2) requestAnimationFrame(loop); else setTimeout(() => requestAnimationFrame(loop), 300);
+    if (scrollY < innerHeight * 1.2) requestAnimationFrame(loop); else setTimeout(() => requestAnimationFrame(loop), 500);
   })();
   $('.hero').addEventListener('click', e => { const r = cv.getBoundingClientRect(); burst(e.clientX - r.left, e.clientY - r.top, 40); });
 
@@ -171,7 +173,7 @@
     gsap.fromTo('#runner', { y: 0 }, { y: () => wrap.offsetHeight - 24, ease: 'none', scrollTrigger: { trigger: wrap, start: 'top 60%', end: 'bottom 60%', scrub: true, invalidateOnRefresh: true } });
     steps.forEach(s => {
       ScrollTrigger.create({ trigger: s, start: 'top 62%', onEnter: () => s.classList.add('on'), onLeaveBack: () => s.classList.remove('on') });
-      gsap.from(s, { opacity: 0, x: 60, duration: .9, ease: 'power3.out', scrollTrigger: { trigger: s, start: 'top 85%' } });
+      gsap.from(s, { opacity: 0, y: 50, duration: .9, ease: 'power3.out', scrollTrigger: { trigger: s, start: 'top 85%' } });
     });
 
     /* грузовик Анна → Грозный */
@@ -191,7 +193,7 @@
     });
     ScrollTrigger.create({ trigger: '#gb', start: 'top 75%', once: true, onEnter: () => {
       $('.gb-body').classList.add('go');
-      gsap.to('#legend li', { opacity: 1, x: 0, duration: .7, stagger: .15, ease: 'power3.out', delay: .3 });
+      gsap.to('#legend li', { opacity: 1, y: 0, duration: .7, stagger: .15, ease: 'power3.out', delay: .3 });
     } });
     gsap.from('#gb', { rotation: -8, y: 80, scrollTrigger: { trigger: '.inside', start: 'top bottom', end: 'center center', scrub: true } });
 
@@ -202,7 +204,7 @@
     } });
 
     /* вкусы */
-    gsap.from('.taste', { y: 140, rotation: (i) => [-10, 6, -6, 10][i], opacity: 0, duration: 1.1, stagger: .1, ease: 'back.out(1.4)', scrollTrigger: { trigger: '.shelf', start: 'top 85%' } });
+    $$('.taste').forEach((t, i) => gsap.from(t, { y: 80, rotation: [-6, 4, -4, 6][i], opacity: 0, duration: .9, delay: (i % 2) * .08, ease: 'back.out(1.4)', clearProps: 'transform', scrollTrigger: { trigger: t, start: 'top 92%' } }));
     $$('.taste').forEach(t => t.addEventListener('click', () => {
       t.classList.remove('shake'); void t.offsetWidth; t.classList.add('shake');
       if (navigator.vibrate) navigator.vibrate(40);
